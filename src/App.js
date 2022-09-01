@@ -11,8 +11,24 @@ function App() {
   const [LeftSide, setLeftSide] = useState(null); //4
   const [lastEntry, setLastEntry] = useState(null); //5
   const [answer, setAnswer] = useState(null); //6
-  const [decimal, setDecimal] = useState(false); //7
-  const [historyLog, setHistoryLog] = useState([]); //8
+  const [historyLog, setHistoryLog] = useState([]); //7
+
+  const functions = ["%", "CE", "C", "1/x", "x^2", "sqrt(x)"];
+  const numbers = [
+    "7",
+    "8",
+    "9",
+    "4",
+    "5",
+    "6",
+    "1",
+    "2",
+    "3",
+    "0",
+    "+/-",
+    ".",
+  ];
+  const operations = ["<x", "/", "x", "-", "+", "="];
 
   const clickHandler = (e) => {
     setLastEntry(e);
@@ -70,19 +86,12 @@ function App() {
     setOperation(null);
     setLeftSide(null);
     setAnswer(null);
-    setDecimal(false);
   };
   const clearEntryClickHandle = (e) => {
     setNumber("");
-    setDecimal(false);
   };
   const deleteClickHandle = (e) => {
     let num = number.toString();
-
-    if (num.charAt(num.length - 1) === ".") {
-      setDecimal(false);
-    }
-
     setNumber(num.slice(0, -1));
   };
   const inverseClickHandle = (e) => {
@@ -123,13 +132,14 @@ function App() {
       setNumber("0.");
       return;
     }
-    if (decimal === false) {
+    const nums = number + "";
+    if (!nums.includes(".")) {
+      console.log("does not includes");
       if (number === "") {
         setNumber("0.");
       } else {
         setNumber(number + ".");
       }
-      setDecimal(true);
     }
   };
   const numClickHandle = (e) => {
@@ -145,7 +155,6 @@ function App() {
     }
   };
   const operationClickHandle = (e) => {
-    setDecimal(false);
     if (LeftSide !== null && number !== "" && answer === null) {
       console.log("this");
       let ans = solve(LeftSide, number);
@@ -169,14 +178,7 @@ function App() {
     setAnswer(ans);
     setNumber(ans);
   };
-  useEffect(() => {
-    if (LeftSide !== null && operation !== null) {
-      setCalculation(LeftSide + " " + operation);
-    }
-    if (lastEntry === ".") {
-      setDecimal(true);
-    }
-  }, [LeftSide, operation]);
+
   const solve = (left, right) => {
     setCalculation(left + " " + operation + " " + right);
     let ans = "";
@@ -214,6 +216,11 @@ function App() {
       historyLog.splice(-1);
     }
   };
+  useEffect(() => {
+    if (LeftSide !== null && operation !== null) {
+      setCalculation(LeftSide + " " + operation);
+    }
+  }, [LeftSide, operation, lastEntry, number]);
 
   return (
     <div className="App">
@@ -223,7 +230,12 @@ function App() {
         </div>
         <DisplayBox number={number} calculation={calculation} />
         <HistoryBox historyLog={historyLog} />
-        <ButtonBox onClick={(e) => clickHandler(e.target.value)} />
+        <ButtonBox
+          onClick={(e) => clickHandler(e.target.value)}
+          functions={functions}
+          operations={operations}
+          numbers={numbers}
+        />
       </div>
     </div>
   );

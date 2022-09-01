@@ -1,23 +1,8 @@
 import Button from "./Button";
 import "./ButtonBox.css";
 
-export default function ButtonBox({onClick}) {
-  const functions = ["%", "CE", "C", "1/x", "x^2", "sqrt(x)"];
-  const numbers = [
-    "7",
-    "8",
-    "9",
-    "4",
-    "5",
-    "6",
-    "1",
-    "2",
-    "3",
-    "0",
-    "+/-",
-    ".",
-  ];
-  const operations = ["<x", "/", "x", "-", "+", "="];
+export default function ButtonBox({onClick,functions,numbers,operations}) {
+  
 
   return (
     <>
