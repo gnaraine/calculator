@@ -1,9 +1,7 @@
 import Button from "./Button";
 import "./ButtonBox.css";
 
-export default function ButtonBox({onClick,functions,numbers,operations}) {
-  
-
+export default function ButtonBox({ onClick, functions, numbers, operations }) {
   return (
     <>
       <div className="button-container">
