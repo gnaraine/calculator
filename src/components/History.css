@@ -1,0 +1,24 @@
+.history {
+  grid-column: 1;
+  text-align: right;
+  height: 60px;
+  border-radius: 4px;
+  align-items: center;
+  margin: 5px;
+}
+.history:hover {
+  background: #273030;
+}
+
+.history .problem {
+  color: #a3a7a7;
+  padding-right: 15px;
+  padding-top: 10px;
+  margin: 0px;
+  width: 250px;
+}
+.history .answer {
+  padding-right: 15px;
+  margin: 0px;
+  width: 250px;
+}
